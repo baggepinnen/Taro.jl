@@ -40,7 +40,7 @@ const DataFormat = JavaObject{Symbol("org.apache.poi.ss.usermodel.DataFormat")}
 
 jFile = @jimport java.io.File
 
-immutable ParseOptions{S <: AbstractString}
+struct ParseOptions{S <: AbstractString}
     header::Bool
     nastrings::Vector{S}
     truestrings::Vector{S}
@@ -397,7 +397,7 @@ function getExcelDate(date::DateTime, use1904windowing::Bool=false)  #->Float64
                            ) * 1000 + Dates.millisecond(date)
                           ) / DAY_MILLISECONDS;
         dayStart = DateTime(Dates.year(date), Dates.month(date), Dates.day(date))
-        yearStart = use1904windowing?1904:1900
+        yearStart = use1904windowing ? 1904 : 1900
         value = Int64(Dates.value(Dates.Day(dayStart - DateTime(yearStart, 1, 1)))) + 1
 
         if (!use1904windowing && value >= 60)
